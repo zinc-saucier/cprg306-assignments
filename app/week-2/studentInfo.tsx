@@ -1,8 +1,10 @@
+import Link from "next/link"
+
 export default function StudentInfo() {
   return (
-    <main>
+    <div>
       <h1>Name: Tessa Unrau</h1>
-      <h2>Github: https://github.com/zinc-saucier/cprg306-assignments</h2>
-    </main>
+      <Link href="https://github.com/zinc-saucier/cprg306-assignments">Github Link</Link>
+    </div>
   );
 }
