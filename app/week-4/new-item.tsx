@@ -7,6 +7,8 @@ import { useState } from "react";
 //   category: string;
 // };
 
+// styling, field restrictions, validation needed still
+
 export default function NewItem() {
   const [name, setName] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
