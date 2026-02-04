@@ -4,7 +4,7 @@ import NewItem from "./new-item";
 export default function week4() {
   return (
     <div>
-      <NewItem />
+      <NewItem/>
     </div>
   );
 }
