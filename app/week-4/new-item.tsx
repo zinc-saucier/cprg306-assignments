@@ -1,22 +1,14 @@
 "use client";
-
 import React, { useState } from "react";
 
-// type ItemParams = {
-//   name: string;
-//   quantity: number;
-//   category: string;
-// };
-
-// styling, field restrictions, validation needed still
-
 export default function NewItem() {
+  //useState variables for form fields
   const [name, setName] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const [category, setCategory] = useState<string>("Produce");
   const [nameTouched, setNameTouched] = useState<boolean>(false);
   
-
+//submission handler with validation
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -28,12 +20,9 @@ export default function NewItem() {
     console.log(name, quantity, category);
     alert(`Item name: ${name}, Quantity: ${quantity}, Category: ${category}`);
     clear();
-    // setName("");
-    // setQuantity(1);
-    // setCategory("Produce");
-    // setNameTouched(false);
     }
   };
+  //event handlers
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -43,6 +32,7 @@ export default function NewItem() {
   const handleCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
+  //error handling for name field, final form validation to allow submit
   const handleTouch = () => {
     if (name=="") {
     setNameTouched(true);
@@ -53,6 +43,7 @@ export default function NewItem() {
       document.getElementById("submit").removeAttribute('disabled');
     }
   };
+  //reset the form, easy button
   const clear = () => {
     location.reload();
   }
@@ -104,7 +95,6 @@ export default function NewItem() {
             name="category"
             defaultValue={"Produce"}
             onChange={handleCategory}
-           
           >
             <option value="Produce">Produce</option>
             <option value="Dairy">Dairy</option>
@@ -119,7 +109,6 @@ export default function NewItem() {
             <option value="Other">Other</option>
            </select> 
           
-
           <input 
           className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
           id="submit"
