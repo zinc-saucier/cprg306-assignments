@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function NewItem() {
   //useState variables for form fields
   const [name, setName] = useState<string>("");
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(0);
   const [category, setCategory] = useState<string>("Produce");
   const [nameTouched, setNameTouched] = useState<boolean>(false);
   
@@ -127,7 +127,7 @@ export default function NewItem() {
               <option value="Household">Household</option>
               <option value="Other">Other</option>
             </select> 
-            
+            <div className="flex flex-row justify-items-center">
             <input 
             className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
             id="submit"
@@ -135,6 +135,14 @@ export default function NewItem() {
             value="Submit"
             disabled
             />
+            <input 
+            className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            id="reset"
+            type="reset" 
+            onClick={clear}
+            
+            />
+            </div>
           </form>
       </div>
     </div>
