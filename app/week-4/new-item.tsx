@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function NewItem() {
   //useState variables for form fields
   const [name, setName] = useState<string>("");
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
   const [category, setCategory] = useState<string>("Produce");
   const [nameTouched, setNameTouched] = useState<boolean>(false);
   
