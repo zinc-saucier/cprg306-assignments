@@ -53,7 +53,7 @@ export default function NewItem() {
   return (
     <div className="flex flex-col place-content-center items-center  bg-cyan-900">
       <div className="flex flex-row justify-items-center">
-      <Image className="shadow-lg"
+      <Image className=""
         src="/bread.png"
         alt="loaf of bread"
         height={100}
@@ -61,7 +61,7 @@ export default function NewItem() {
         priority
       />{/*source URL: https://pixabay.com/illustrations/search/food/ */}
       <h1 className="flex p-2 mt-8 font-bold text-xl ">Add items to your Shopping List!</h1>
-      <Image className="shadow-lg"
+      <Image className=""
         src="/chocolate.png"
         alt="chocolate bar"
         height={100}
