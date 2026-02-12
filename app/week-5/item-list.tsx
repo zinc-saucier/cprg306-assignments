@@ -4,70 +4,76 @@ import Item from "./item";
 import list from "./items.json";
 
 //create items and store them in a list
-const items = [];
-    for (let i=0; i < list.length; i++){
-        items.push(
-            <Item
-                id={list[i].id}
-                name={list[i].name}
-                quantity={list[i].quantity}
-                category={list[i].category}
-            />)
-    }
-console.log(items)
+// const items = [<Item key={i} id={""} name={""} quantity={0} category={""}/>];
+//     for (let i=0; i < list.length; i++){
+//         items.push(
+//             <Item
+//                 key={list[i].id}
+//                 id={""}
+//                 name={list[i].name}
+//                 quantity={list[i].quantity}
+//                 category={list[i].category}             />)
+//     }
+// console.log(items)
+
+
 
 export default function ItemList() {
     
     const [sortBy, setSortBy] = useState<String>("name");
+    const [listSort, setListSort] = useState([list]);   
+    
+
+    
 
     const sortName = () => {
         setSortBy("name")
-        let ListItems = ([...items].sort((a, b) => a.name < b.name ? 1:-1,)).map((Item) => (<li key={Item.id}>{Item}</li>));
-        return ListItems
+        let nameList=[list.toSorted((a,b) => a.name.localeCompare(b.name))]
+        setListSort(nameList);
+        console.group('sort by name');
+        console.table([listSort]);
+        console.groupEnd();
+        
     } 
     const sortCat = () => {
         setSortBy("category")
-        let ListItems = ([...items].sort((a, b) => a.quantity < b.quantity ? 1:-1,)).map((Item) => (<li key={Item.id}>{Item}</li>));
-        return ListItems
+        let catList=[list.toSorted((a,b) => a.category.localeCompare(b.category))]
+        setListSort(catList);
+        console.group('sort by category');
+        console.table([listSort]);
+        console.groupEnd();
+       
     }
-    const changeSort = () => {
-        if (sortBy==="name") {
-            let sort = sortName()
-            return sort;
-        }else {
-            let sort = sortCat()
-            return sort;
-        }
-        
-    }
-
    
-    let ListItems = ([...items].sort((a, b) => a.quantity < b.quantity ? 1:-1,));
-    console.log(ListItems)
-   
-    
-    
-
     return (
         <div>
-            
-            <button 
-            className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
-            id="nameButton"
-            type="button" 
-            onClick={changeSort}
-            >Sort items by name</button>
+            <div className="place-items-center">
+                
+                <button 
+                className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
+                id="nameButton"
+                type="button" 
+                onClick={sortName}
+                >Sort items by name</button>
 
-            <button 
-            className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
-            id="catButton"
-            type="button" 
-            onClick={changeSort}
-            >Sort items by category</button>
-          
-            <ul>{[...ListItems].map(item => <li key={item.id}>{item}</li>)}</ul>
+                <button 
+                className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
+                id="catButton"
+                type="button" 
+                onClick={sortCat}
+                >Sort items by category</button>
 
+                <h1>Shopping List sorted by {sortBy}</h1>
+            </div>
+
+            <div>
+                <ul>
+                    {listSort.map((item) => (<div key={item.id}><Item name={""} quantity={0} category={""}/></div>))}
+                    
+                </ul>
+            </div>
         </div>
-    )
+    )            
+       
 
 }
