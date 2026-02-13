@@ -22,32 +22,61 @@ export default function ItemList() {
     
     const [sortBy, setSortBy] = useState<String>("name");
     const [listSort, setListSort] = useState([...list]);  
-    const [clicked, setClicked] = useState("")
+    const [clickedN, setClickedN] = useState<boolean>(false)
+    const [clickedC, setClickedC] = useState<boolean>(false)
+    const [clickedG, setClickedG] = useState<boolean>(false)
     
 
     
 
     const sortName = () => {
         setSortBy("name")
+        // setClickedN(true)
+        // setClickedC(false)
+        // setClickedG(false)
         let nameList=[...list.toSorted((a,b) => a.name.localeCompare(b.name))]
         setListSort(nameList);
         console.group('sort by name');
         console.log(listSort);
         console.groupEnd();
-        
+        document.getElementById("category list").setAttribute("hidden","true");
+        document.getElementById("shopping list").removeAttribute("hidden");
     } 
     const sortCat = () => {
         setSortBy("category")
+        // setClickedN(false)
+        // setClickedC(true)
+        // setClickedG(false)
         let catList=[...list.toSorted((a,b) => a.category.localeCompare(b.category))]
         setListSort(catList);
         console.group('sort by category');
         console.log(listSort);
         console.groupEnd();
-       
+        document.getElementById("category list").setAttribute("hidden","true");
+        document.getElementById("shopping list").removeAttribute("hidden");
     }
-    const group =()=> {
-        sortCat()
-
+    const groupCat =()=> {
+        setSortBy("group")
+        // setClickedN(false)
+        // setClickedC(false)
+        // setClickedG(true)
+        let categories = ["bakery","canned goods","dairy","household","meat","produce"]
+        for (let i=0; i<categories.length; i++){
+            let groupList=[...listSort.filter(item => item.category == categories[i])]
+            let items = [];
+            for (let i=0; i < groupList.length; i++){
+                items.push(
+                <Item
+                    key={groupList[i].id}
+                    name={groupList[i].name}
+                    quantity={groupList[i].quantity}
+                    category={groupList[i].category}
+                               />)
+            }
+        }
+        // document.getElementById("shopping list").innerHTML = `${list}`;
+        document.getElementById("shopping list").setAttribute("hidden","true");
+        document.getElementById("category list").removeAttribute("hidden");
     }
    
     return (
@@ -55,32 +84,38 @@ export default function ItemList() {
             <div className="place-items-center">
                 
                 <button 
-                className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
+                className={`place-items-center text-blue-950 ${sortBy=="name" ? 'bg-blue-500': 'bg-blue-300'} border-2 border-orange-400 m-2 p-1`}
                 id="nameButton"
                 type="button" 
                 onClick={sortName}
                 >Sort items by name</button>
 
                 <button 
-                className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
+                className={`place-items-center text-blue-950 ${sortBy=="category" ? 'bg-blue-500': 'bg-blue-300'} border-2 border-orange-400 m-2 p-1`}
                 id="catButton"
                 type="button" 
                 onClick={sortCat}
                 >Sort items by category</button>
 
                 <button 
-                className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
+                className={`place-items-center text-blue-950 ${sortBy=="group" ? 'bg-blue-500': 'bg-blue-300'} border-2 border-orange-400 m-2 p-1`}
                 id="catButton"
                 type="button" 
-                onClick={sortCat}
-                >Sort items into categories</button>
+                onClick={groupCat}
+                >Group items by category</button>
 
                 <h1>Shopping List sorted by {sortBy}</h1>
             </div>
 
             <div>
-                <ul>
+                <ul id="shopping list">
                     {listSort.map((item, id) => (
+                        <Item key={id} name={item.name} quantity={item.quantity} category={item.category}/>
+                        ))}
+                </ul>
+                <ul id="category list" className="capitalize" hidden>
+                    {/*temporary placeholder list */}
+                    {list.map((item, id) => (
                         <Item key={id} name={item.name} quantity={item.quantity} category={item.category}/>
                         ))}
                 </ul>
