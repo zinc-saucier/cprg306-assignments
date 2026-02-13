@@ -21,28 +21,33 @@ import list from "./items.json";
 export default function ItemList() {
     
     const [sortBy, setSortBy] = useState<String>("name");
-    const [listSort, setListSort] = useState([list]);   
+    const [listSort, setListSort] = useState([...list]);  
+    const [clicked, setClicked] = useState("")
     
 
     
 
     const sortName = () => {
         setSortBy("name")
-        let nameList=[list.toSorted((a,b) => a.name.localeCompare(b.name))]
+        let nameList=[...list.toSorted((a,b) => a.name.localeCompare(b.name))]
         setListSort(nameList);
         console.group('sort by name');
-        console.table([listSort]);
+        console.log(listSort);
         console.groupEnd();
         
     } 
     const sortCat = () => {
         setSortBy("category")
-        let catList=[list.toSorted((a,b) => a.category.localeCompare(b.category))]
+        let catList=[...list.toSorted((a,b) => a.category.localeCompare(b.category))]
         setListSort(catList);
         console.group('sort by category');
-        console.table([listSort]);
+        console.log(listSort);
         console.groupEnd();
        
+    }
+    const group =()=> {
+        sortCat()
+
     }
    
     return (
@@ -63,13 +68,21 @@ export default function ItemList() {
                 onClick={sortCat}
                 >Sort items by category</button>
 
+                <button 
+                className="place-items-center bg-blue-300 text-blue-950  border-2 border-orange-400 m-2 p-1"
+                id="catButton"
+                type="button" 
+                onClick={sortCat}
+                >Sort items into categories</button>
+
                 <h1>Shopping List sorted by {sortBy}</h1>
             </div>
 
             <div>
                 <ul>
-                    {listSort.map((item) => (<div key={item.id}><Item name={""} quantity={0} category={""}/></div>))}
-                    
+                    {listSort.map((item, id) => (
+                        <Item key={id} name={item.name} quantity={item.quantity} category={item.category}/>
+                        ))}
                 </ul>
             </div>
         </div>
