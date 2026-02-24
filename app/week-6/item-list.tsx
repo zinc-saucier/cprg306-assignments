@@ -1,22 +1,18 @@
 "use client";
 import { useState } from "react";
 import Item from "./item";
-import list from "./items.json";
 
-//create items and store them in a list - not needed, retaining for future debugging
-// const items = [<Item key={i} id={""} name={""} quantity={0} category={""}/>];
-//     for (let i=0; i < list.length; i++){
-//         items.push(
-//             <Item
-//                 key={list[i].id}
-//                 id={""}
-//                 name={list[i].name}
-//                 quantity={list[i].quantity}
-//                 category={list[i].category}             />)
-//     }
-// console.log(items)
+type Items = {
+  id: string;
+  name: string;
+  quantity: number;
+  category: string;
+};
+type Props = {
+  list: Items[];
+};
 
-export default function ItemList() {
+export default function ItemList({ list }: Props) {
   const [sortBy, setSortBy] = useState<String>("name");
   const [listSort, setListSort] = useState([...list]);
 
