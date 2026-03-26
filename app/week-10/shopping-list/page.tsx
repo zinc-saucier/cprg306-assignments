@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useUserAuth } from "../_utils/auth-context";
+import { useUserAuth } from "../../_utils/auth-context";
 import Link from "next/link";
 
 import ItemList from "./item-list";
@@ -16,22 +16,24 @@ type OnAdditem = {
   category: string;
 };
 
-export default function week8() {
-  const [items, setItems] = useState(null);
+export default function week10() {
+  const [items, setItems] = useState([]);
   const { user } = useUserAuth();
 
   async function loadItems() {
-    getUserItems(user.id);
-    setItems(getUserItems);
+    console.log("I got here..")
+    const itemList: any = getUserItems("Id_1");
+    setItems(itemList);
+    console.log(itemList)
   }
 
   useEffect(() => {
-    loadItems;
-  }, [user != null]);
+    loadItems();
+  }, [user]);
 
   const handleAddItem = (item: OnAdditem) => {
     //setItems([...itemsData, item]);
-    addItem(user.id, item);
+    addItem(user.userName, item);
     console.log(item);
   };
 
@@ -40,7 +42,7 @@ export default function week8() {
       {user != null && (
         <div className="flex flex-col place-items-center bg-cyan-900">
           <h1>Shopping List</h1>
-          <Link className="" href="/week-8">
+          <Link className="" href="/week-10">
             <u>Back to Login</u>
           </Link>
           <div className="flex flex-col place-items-center">
